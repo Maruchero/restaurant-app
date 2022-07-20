@@ -1,7 +1,6 @@
 <?php
 
-class DishEntity
-{
+class DishDTO {
     private $id;
     private $name;
     private $ingredients;
@@ -37,5 +36,14 @@ class DishEntity
                 ", ingredients='" . $this->ingredients . '\'' .
                 ", id_menu=" . $this->id_menu .
                 '}';
+    }
+
+    public function toJson() {
+        return array(
+            "id" => $this->id,
+            "name" => $this->name,
+            "ingredients" => $this->ingredients,
+            "id_menu" => $this->id_menu
+        );
     }
 }
