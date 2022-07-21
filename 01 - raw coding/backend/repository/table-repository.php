@@ -1,5 +1,8 @@
 <?php
 
+require '../db.php';
+require '../entities/table-entity.php';
+
 class TableRepository {
     public static function fetchAll() {
         $sql = "SELECT * FROM tables";

@@ -1,28 +1,31 @@
 <?php
 
+require '../db.php';
+require '../entities/restaurant-entity.php';
+
 class RestaurantRepository {
     public static function fetchAll() {
         $sql = "SELECT * FROM restaurants";
         $result = Database::getPdo()->query($sql);
         $restaurants = [];
         while ($row = $result->fetch()) {
-            $restaurants[] = new RestaurantEntity($row['id'], $row['name'], $row['address'], $row['phone'], $row['email']);
+            $restaurants[] = new RestaurantEntity($row['id'], $row['name']);
         }
         return $restaurants;
     }
 
-    public static function add(RestaurantEntity $restaurant): void {
-        $sql = "INSERT INTO restaurants (name, address, phone, email) VALUES ('" . $restaurant->getName() . "', '" . $restaurant->getAddress() . "', '" . $restaurant->getPhone() . "', '" . $restaurant->getEmail() . "')";
+    public static function add(RestaurantDTO $restaurant): void {
+        $sql = "INSERT INTO restaurants (name) VALUES ('" . $restaurant->getName() . "')";
         Database::getPdo()->exec($sql);
     }
 
-    public static function delete(RestaurantEntity $restaurant): void {
+    public static function delete(RestaurantDTO $restaurant): void {
         $sql = "DELETE FROM restaurants WHERE id = " . $restaurant->getId();
         Database::getPdo()->exec($sql);
     }
 
-    public static function update(RestaurantEntity $restaurant): void {
-        $sql = "UPDATE restaurants SET name = '" . $restaurant->getName() . "', address = '" . $restaurant->getAddress() . "', phone = '" . $restaurant->getPhone() . "', email = '" . $restaurant->getEmail() . "' WHERE id = " . $restaurant->getId();
+    public static function update(RestaurantDTO $restaurant): void {
+        $sql = "UPDATE restaurants SET name = '" . $restaurant->getName() . "' WHERE id = " . $restaurant->getId();
         Database::getPdo()->exec($sql);
     }
 }

@@ -8,13 +8,13 @@ class RestaurantService {
         $restaurants = RestaurantRepository::fetchAll();
         $dtos = [];
         foreach ($restaurants as $restaurant) {
-            $dtos[] = new RestaurantDTO($restaurant->getId(), $restaurant->getName(), $restaurant->getAddress(), $restaurant->getPhone(), $restaurant->getEmail());
+            $dtos[] = new RestaurantDTO($restaurant->getId(), $restaurant->getName());
         }
         return $dtos;
     }
     
     public static function add(RestaurantDTO $restaurant): void {
-        $restaurantEntity = new RestaurantEntity($restaurant->getId(), $restaurant->getName(), $restaurant->getAddress(), $restaurant->getPhone(), $restaurant->getEmail());
+        $restaurantEntity = new RestaurantEntity($restaurant->getId(), $restaurant->getName());
         // if id is already set then update, otherwise insert
         if ($restaurant->getId() !== null) {
             RestaurantRepository::update($restaurant);
@@ -24,7 +24,7 @@ class RestaurantService {
     }
     
     public static function delete(RestaurantDTO $restaurant): void {
-        $restaurantEntity = new RestaurantEntity($restaurant->getId(), $restaurant->getName(), $restaurant->getAddress(), $restaurant->getPhone(), $restaurant->getEmail());
+        $restaurantEntity = new RestaurantEntity($restaurant->getId(), $restaurant->getName());
         RestaurantRepository::delete($restaurantEntity);
     }
 }
