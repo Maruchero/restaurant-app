@@ -25,7 +25,7 @@ class RestaurantController {
 
 if (isset($_REQUEST['action'])) {
     switch ($_REQUEST['action']) {
-        case 'getAllRestaurants':
+        case 'getAll':
             echo json_encode(RestaurantController::fetchAll());
             break;
         

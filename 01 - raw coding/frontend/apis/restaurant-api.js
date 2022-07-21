@@ -2,16 +2,17 @@
  * In this file we will create ajax requests to our php server
 */
 
-const url = "/backend/controllers/restaurant-controller.php";
+const restaurantUrl = "/backend/controllers/restaurant-controller.php";
 
-async function fetchAllRestaurants(func=null) {
+async function fetchAllRestaurants(func) {
     let request = new XMLHttpRequest();
-    request.open("GET", url + "?action=getAllRestaurants");
-    request.send();
+    request.open("POST", restaurantUrl);
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send("action=getAll");
     request.onreadystatechange = () => {
         if (request.readyState === 4 && request.status === 200) {
             let restaurants = request.responseText;
-            if (func) func(restaurants);
+            func(restaurants);
         }
     }
 }

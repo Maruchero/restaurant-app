@@ -1,15 +1,15 @@
 
-const restaurantTable = document.getElementById('restaurants-table');
+const restaurantsTable = document.getElementById('restaurants-table');
 
 fetchAllRestaurants((restaurants) => {
     let restaurantsArray = JSON.parse(restaurants);
-    restaurantTable.innerHTML = "<thead><tr><th>Id</th><th>Name</th></tr></thead>";
+    restaurantsTable.innerHTML = "<thead><tr><th>Id</th><th>Name</th></tr></thead>";
     let tbody = document.createElement("tbody");
     restaurantsArray.forEach(restaurant => {
         let tr = document.createElement('tr');
         tr.innerHTML = `<td>${restaurant.id}</td><td>${restaurant.name}</td>`;
-        tr.setAttribute("onclick", `window.location.href = 'restaurant'; restaurantId = ${restaurant.id}`);
+        tr.setAttribute("onclick", `window.location.href = 'restaurant/'; restaurantId = ${restaurant.id}`);
         tbody.appendChild(tr);
     });
-    restaurantTable.appendChild(tbody);
+    restaurantsTable.appendChild(tbody);
 });

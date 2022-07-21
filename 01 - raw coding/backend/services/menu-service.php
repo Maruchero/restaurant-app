@@ -8,13 +8,13 @@ class MenuService {
         $menus = MenuRepository::fetchAll();
         $dtos = [];
         foreach ($menus as $menu) {
-            $dtos[] = new MenuDTO($menu->getId(), $menu->getName(), $menu->getDescription(), $menu->getIdRestaurant());
+            $dtos[] = new MenuDTO($menu->getId(), $menu->getName(), $menu->getCreateDate(), $menu->getModifyDate(), $menu->getIdRestaurant());
         }
         return $dtos;
     }
-    
+
     public static function add(MenuDTO $menu): void {
-        $menuEntity = new MenuEntity($menu->getId(), $menu->getName(), $menu->getDescription(), $menu->getIdRestaurant());
+        $menuEntity = new MenuEntity($menu->getId(), $menu->getName(), $menu->getCreateDate(), $menu->getModifyDate(), $menu->getIdRestaurant());
         // if id is already set then update, otherwise insert
         if ($menu->getId() !== null) {
             MenuRepository::update($menu);
@@ -22,9 +22,9 @@ class MenuService {
             MenuRepository::add($menu);
         }
     }
-    
+
     public static function delete(MenuDTO $menu): void {
-        $menuEntity = new MenuEntity($menu->getId(), $menu->getName(), $menu->getDescription(), $menu->getIdRestaurant());
+        $menuEntity = new MenuEntity($menu->getId(), $menu->getName(), $menu->getCreateDate(), $menu->getModifyDate(), $menu->getIdRestaurant());
         MenuRepository::delete($menuEntity);
     }
 }

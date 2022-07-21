@@ -22,3 +22,17 @@ class DishController {
         DishService::delete($dishDTO);
     }
 }
+
+if (isset($_REQUEST['action'])) {
+    switch ($_REQUEST['action']) {
+        case 'getAll':
+            echo json_encode(DishController::fetchAll());
+            break;
+
+        default:
+            echo 'Invalid request: ' . $_REQUEST['action'];
+            break;
+    }
+} else {
+    echo 'Invalid request: no action specified';
+}
