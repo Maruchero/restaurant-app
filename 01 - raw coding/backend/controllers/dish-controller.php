@@ -13,12 +13,12 @@ class DishController {
     }
 
     public static function add(array $dish) {
-        $dishDTO = new DishDTO($dish['id'], $dish['name'], $dish['ingredients'], $dish['id_menu']);
+        $dishDTO = new DishDTO($dish['id'], $dish['name'], $dish['ingredients'], $dish['price'], $dish['id_menu']);
         DishService::add($dishDTO);
     }
 
     public static function delete(array $dish) {
-        $dishDTO = new DishDTO($dish['id'], $dish['name'], $dish['ingredients'], $dish['id_menu']);
+        $dishDTO = new DishDTO($dish['id'], $dish['name'], $dish['ingredients'], $dish['price'], $dish['id_menu']);
         DishService::delete($dishDTO);
     }
 }

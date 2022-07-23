@@ -8,13 +8,13 @@ class DishService {
         $dishes = DishRepository::fetchAll();
         $dtos = [];
         foreach ($dishes as $dish) {
-            $dtos[] = new DishDTO($dish->getId(), $dish->getName(), $dish->getIngredients(), $dish->getIdMenu());
+            $dtos[] = new DishDTO($dish->getId(), $dish->getName(), $dish->getIngredients(), $dish->getPrice(), $dish->getIdMenu());
         }
         return $dtos;
     }
     
     public static function add(DishDTO $dish): void {
-        $dishEntity = new DishEntity($dish->getId(), $dish->getName(), $dish->getIngredients(), $dish->getIdMenu());
+        $dishEntity = new DishEntity($dish->getId(), $dish->getName(), $dish->getIngredients(), $dish->getPrice(), $dish->getIdMenu());
         // if id is already set then update, otherwise insert
         if ($dish->getId() !== null) {
             DishRepository::update($dish);
@@ -24,7 +24,7 @@ class DishService {
     }
 
     public static function delete(DishDTO $dish): void {
-        $dishEntity = new DishEntity($dish->getId(), $dish->getName(), $dish->getIngredients(), $dish->getIdMenu());
+        $dishEntity = new DishEntity($dish->getId(), $dish->getName(), $dish->getIngredients(), $dish->getPrice(), $dish->getIdMenu());
         DishRepository::delete($dishEntity);
     }
 }

@@ -5,12 +5,14 @@ class DishEntity
     private $id;
     private $name;
     private $ingredients;
+    private $price;
     private $id_menu;
     
-    public function __construct($id, $name, $ingredients, $id_menu) {
+    public function __construct($id, $name, $ingredients, $price, $id_menu) {
         $this->id = $id;
         $this->name = $name;
         $this->ingredients = $ingredients;
+        $this->price = $price;
         $this->id_menu = $id_menu;
     }
     
@@ -30,11 +32,16 @@ class DishEntity
         return $this->id_menu;
     }
 
+    public function getPrice() {
+        return $this->price;
+    }
+
     public function __toString() {
-        return "DishDTO{" .
+        return "DishEntity{" .
                 "id=" . $this->id .
                 ", name='" . $this->name . '\'' .
                 ", ingredients='" . $this->ingredients . '\'' .
+                ", price=" . $this->price .
                 ", id_menu=" . $this->id_menu .
                 '}';
     }
