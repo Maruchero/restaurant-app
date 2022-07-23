@@ -9,15 +9,21 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <table id="menus-table"></table>
-    </div>
-    <div class="container">
-        <table id="dishes-table"></table>
-    </div>
-    <div class="container">
-        <table id="tables-table"></table>
-    </div>
+    <section>
+        <div class="left-panel">
+            <div class="container">
+                <h1 class="title" id="restaurant-name">Restaurant</h1>
+                <p>Welcome to our restaurant! Take a look at the menu and enjoy your meal.</p>
+                <div class="buttons">
+                    <a class="button" href="../admin/">Admin</a>
+                    <a class="button empty" href="../customer/">Customer</a>
+                </div>
+            </div>
+        </div>
+        <div class="right-panel">
+            <img src="../img/restaurant-home.jpg" alt="">
+        </div>
+    </section>
     <!-- Scripts -->
     <script src="../main.js"></script>
     <script src="../apis/dish-api.js"></script>
