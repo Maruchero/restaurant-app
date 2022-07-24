@@ -13,7 +13,7 @@ class RestaurantController {
     }
     
     public static function add(array $restaurant) {
-        $restaurantDTO = new RestaurantDTO($restaurant['id'], $restaurant['name']);
+        $restaurantDTO = new RestaurantDTO($restaurant['name']);
         RestaurantService::add($restaurantDTO);
     }
     
@@ -21,12 +21,29 @@ class RestaurantController {
         $restaurantDTO = new RestaurantDTO($restaurant['id'], $restaurant['name']);
         RestaurantService::delete($restaurantDTO);
     }
+
+    public static function update(array $restaurant) {
+        $restaurantDTO = new RestaurantDTO($restaurant['id'], $restaurant['name']);
+        RestaurantService::update($restaurantDTO);
+    }
 }
 
 if (isset($_REQUEST['action'])) {
     switch ($_REQUEST['action']) {
-        case 'getAll':
+        case 'fetchAll':
             echo json_encode(RestaurantController::fetchAll());
+            break;
+
+        case 'add':
+            RestaurantController::add($_REQUEST['restaurant']);
+            break;
+
+        case 'delete':
+            RestaurantController::delete($_REQUEST['restaurant']);
+            break;
+
+        case 'update':
+            RestaurantController::update($_REQUEST['restaurant']);
             break;
         
         default:

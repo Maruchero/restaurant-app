@@ -1,14 +1,23 @@
-const dishUrl = "/backend/controllers/dish-controller.php";
+class DishApi extends Api {
+    static URL = '/backend/controllers/dish-controller.php';
 
-async function fetchAllDishes(func) {
-    let request = new XMLHttpRequest();
-    request.open("POST", dishUrl);
-    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    request.send("action=getAll");
-    request.onreadystatechange = () => {
-        if (request.readyState === 4 && request.status === 200) {
-            let dishes = request.responseText;
-            func(dishes);
-        }
+    static fetchAll(callback) {
+        this.serverRequest("action=fetchAll", callback);
+    }
+    
+    static fetchByMenuId(menuId, callback) {
+        this.serverRequest("action=fetchByMenuId&id=" + menuId, callback);
+    }
+    
+    static add(dish, callback) {
+        this.serverRequest("action=add&dish=" + JSON.stringify(dish), callback);
+    }
+
+    static delete(dish, callback) {
+        this.serverRequest("action=delete&dish=" + JSON.stringify(dish), callback);
+    }
+
+    static update(dish, callback) {
+        this.serverRequest("action=update&dish=" + JSON.stringify(dish), callback);
     }
 }

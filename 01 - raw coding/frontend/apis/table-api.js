@@ -1,15 +1,23 @@
+class TableApi extends Api {
+    static URL = '/backend/controllers/table-controller.php';
 
-const tableUrl = "/backend/controllers/table-controller.php";
+    static fetchAll(callback) {
+        this.serverRequest("action=fetchAll", callback);
+    }
 
-async function fetchAllTables(func) {
-    let request = new XMLHttpRequest();
-    request.open("POST", tableUrl);
-    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    request.send("action=getAll");
-    request.onreadystatechange = () => {
-        if (request.readyState === 4 && request.status === 200) {
-            let tables = request.responseText;
-            func(tables);
-        }
+    static fetchByRestaurantId(restaurantId, callback) {
+        this.serverRequest("action=fetchByRestaurantId&id=" + restaurantId, callback);
+    }
+
+    static add(table, callback) {
+        this.serverRequest("action=add&table=" + JSON.stringify(table), callback);
+    }
+
+    static delete(table, callback) {
+        this.serverRequest("action=delete&table=" + JSON.stringify(table), callback);
+    }
+
+    static update(table, callback) {
+        this.serverRequest("action=update&table=" + JSON.stringify(table), callback);
     }
 }

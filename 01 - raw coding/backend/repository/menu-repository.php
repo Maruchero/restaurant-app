@@ -14,6 +14,17 @@ class MenuRepository {
         return $menus;
     }
 
+    public static function fetchByRestaurantId($id) {
+        $sql = "SELECT * FROM menus WHERE id_restaurant = $id";
+        $result = Database::getPdo()->query($sql);
+        $menus = [];
+        while ($menu = $result->fetch()) {
+            $menus[] = new MenuEntity($menu['id'], $menu['name'], $menu['create_date'], $menu['modify_date'], $menu['id_restaurant']);
+        }
+        return $menus;
+    }
+
+
     public static function add(MenuDTO $menu): void {
         $sql = "INSERT INTO menus (name, create_date, modify_date, id_restaurant) VALUES ('" . $menu->getName() . "', '" . $menu->getCreateDate() . "', '" . $menu->getModifyDate() . "', '" . $menu->getIdRestaurant() . "')";
         Database::getPdo()->exec($sql);

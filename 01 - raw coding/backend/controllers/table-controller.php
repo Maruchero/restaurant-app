@@ -63,15 +63,15 @@ class TableController {
 
 if (isset($_REQUEST['action'])) {
     switch ($_REQUEST['action']) {
-        case 'getAll':
+        case 'fetchAll':
             echo json_encode(TableController::fetchAll());
             break;
 
-        case 'getAllByRestaurantId':
+        case 'fetchByRestaurantId':
             echo json_encode(TableController::fetchAllByRestaurantId($_REQUEST['id']));
             break;
 
-        case 'getFreeByRestaurantId':
+        case 'fetchFreeByRestaurantId':
             echo json_encode(TableController::fetchFreeByRestaurantId($_REQUEST['id']));
             break;
 

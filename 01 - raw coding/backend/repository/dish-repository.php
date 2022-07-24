@@ -13,6 +13,16 @@ class DishRepository {
         }
         return $dishes;
     }
+    
+    public static function fetchByMenuId($id) {
+        $sql = "SELECT * FROM dishes WHERE id_menu = $id";
+        $result = Database::getPdo()->query($sql);
+        $dishes = [];
+        while ($row = $result->fetch()) {
+            $dishes[] = new DishEntity($row['id'], $row['name'], $row['ingredients'], $row['price'], $row['id_menu']);
+        }
+        return $dishes;
+    }
 
     public static function add(DishEntity $dish): void {
         $sql = "INSERT INTO dishes (name, ingredients, id_menu) VALUES ('" . $dish->getName() . "', '" . $dish->getIngredients() . "', '" . $dish->getPrice() . "', '" . $dish->getIdMenu() . "')";

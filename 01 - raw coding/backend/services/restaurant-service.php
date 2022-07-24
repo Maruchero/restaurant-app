@@ -14,17 +14,17 @@ class RestaurantService {
     }
     
     public static function add(RestaurantDTO $restaurant): void {
-        $restaurantEntity = new RestaurantEntity($restaurant->getId(), $restaurant->getName());
-        // if id is already set then update, otherwise insert
-        if ($restaurant->getId() !== null) {
-            RestaurantRepository::update($restaurant);
-        } else {
-            RestaurantRepository::add($restaurant);
-        }
+        $restaurantEntity = new RestaurantEntity($restaurant->getName());
+        RestaurantRepository::add($restaurantEntity);
     }
     
     public static function delete(RestaurantDTO $restaurant): void {
         $restaurantEntity = new RestaurantEntity($restaurant->getId(), $restaurant->getName());
         RestaurantRepository::delete($restaurantEntity);
+    }
+
+    public static function update(RestaurantDTO $restaurant): void {
+        $restaurantEntity = new RestaurantEntity($restaurant->getId(), $restaurant->getName());
+        RestaurantRepository::update($restaurantEntity);
     }
 }

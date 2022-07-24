@@ -13,18 +13,27 @@ class MenuService {
         return $dtos;
     }
 
-    public static function add(MenuDTO $menu): void {
-        $menuEntity = new MenuEntity($menu->getId(), $menu->getName(), $menu->getCreateDate(), $menu->getModifyDate(), $menu->getIdRestaurant());
-        // if id is already set then update, otherwise insert
-        if ($menu->getId() !== null) {
-            MenuRepository::update($menu);
-        } else {
-            MenuRepository::add($menu);
+    public static function fetchByRestaurantId($id) {
+        $menus = MenuRepository::fetchByRestaurantId($id);
+        $dtos = [];
+        foreach ($menus as $menu) {
+            $dtos[] = new MenuDTO($menu->getId(), $menu->getName(), $menu->getCreateDate(), $menu->getModifyDate(), $menu->getIdRestaurant());
         }
+        return $dtos;
+    }
+
+    public static function add(MenuDTO $menu): void {
+        $menuEntity = new MenuEntity($menu->getName(), $menu->getCreateDate(), $menu->getModifyDate(), $menu->getIdRestaurant());
+        MenuRepository::add($menuEntity);
     }
 
     public static function delete(MenuDTO $menu): void {
         $menuEntity = new MenuEntity($menu->getId(), $menu->getName(), $menu->getCreateDate(), $menu->getModifyDate(), $menu->getIdRestaurant());
         MenuRepository::delete($menuEntity);
+    }
+
+    public static function update(MenuDTO $menu): void {
+        $menuEntity = new MenuEntity($menu->getId(), $menu->getName(), $menu->getCreateDate(), $menu->getModifyDate(), $menu->getIdRestaurant());
+        MenuRepository::update($menuEntity);
     }
 }

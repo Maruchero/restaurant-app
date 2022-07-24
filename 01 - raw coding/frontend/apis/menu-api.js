@@ -1,15 +1,24 @@
+class MenuApi extends Api {
+    static URL = '/backend/controllers/menu-controller.php';
 
-const menuUrl = "/backend/controllers/menu-controller.php";
+    // Functions accessible from outside
+    static fetchAll(callback) {
+        this.serverRequest("action=fetchAll", callback);
+    }
 
-async function fetchAllMenus(func) {
-    let request = new XMLHttpRequest();
-    request.open("POST", menuUrl);
-    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    request.send("action=getAll");
-    request.onreadystatechange = () => {
-        if (request.readyState === 4 && request.status === 200) {
-            let menus = request.responseText;
-            func(menus);
-        }
+    static fetchByRestaurantId(restaurantId, callback) {
+        this.serverRequest("action=fetchByRestaurantId&id=" + restaurantId, callback);
+    }
+
+    static add(menu, callback) {
+        this.serverRequest("action=add&menu=" + JSON.stringify(menu), callback);
+    }
+
+    static delete(menu, callback) {
+        this.serverRequest("action=delete&menu=" + JSON.stringify(menu), callback);
+    }
+
+    static update(menu, callback) {
+        this.serverRequest("action=update&menu=" + JSON.stringify(menu), callback);
     }
 }

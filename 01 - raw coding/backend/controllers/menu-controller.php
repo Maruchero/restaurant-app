@@ -11,9 +11,18 @@ class MenuController {
         }
         return $json;
     }
+
+    public static function fetchByRestaurantId($id) {
+        $menus = MenuService::fetchByRestaurantId($id);
+        $json = [];
+        foreach ($menus as $menu) {
+            $json[] = $menu->toJson();
+        }
+        return $json;
+    }
     
     public static function add(array $menu) {
-        $menuDTO = new MenuDTO($menu['id'], $menu['name'], $menu['create_date'], $menu['modify_date'], $menu['restaurant_id']);
+        $menuDTO = new MenuDTO($menu['name'], $menu['create_date'], $menu['modify_date'], $menu['restaurant_id']);
         MenuService::add($menuDTO);
     }
     
@@ -21,12 +30,33 @@ class MenuController {
         $menuDTO = new MenuDTO($menu['id'], $menu['name'], $menu['create_date'], $menu['modify_date'], $menu['restaurant_id']);
         MenuService::delete($menuDTO);
     }
+
+    public static function update(array $menu) {
+        $menuDTO = new MenuDTO($menu['id'], $menu['name'], $menu['create_date'], $menu['modify_date'], $menu['restaurant_id']);
+        MenuService::update($menuDTO);
+    }
 }
 
 if (isset($_REQUEST['action'])) {
     switch ($_REQUEST['action']) {
-        case 'getAll':
+        case 'fetchAll':
             echo json_encode(MenuController::fetchAll());
+            break;
+
+        case 'fetchByRestaurantId':
+            echo json_encode(MenuController::fetchByRestaurantId($_REQUEST['id']));
+            break;
+
+        case 'add':
+            MenuController::add($_REQUEST['menu']);
+            break;
+
+        case 'delete':
+            MenuController::delete($_REQUEST['menu']);
+            break;
+
+        case 'update':
+            MenuController::update($_REQUEST['menu']);
             break;
         
         default:
