@@ -11,6 +11,7 @@ CREATE TABLE `restaurants`(
 CREATE TABLE `tables`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `number` INT NOT NULL,
+    `free` BOOLEAN NOT NULL,
     `orders` TEXT NOT NULL,
     `id_restaurant` INT UNSIGNED NOT NULL
 );

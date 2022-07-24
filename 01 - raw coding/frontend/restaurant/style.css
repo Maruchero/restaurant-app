@@ -6,7 +6,7 @@ section {
     width: 50%;
     height: 100vh;
     float: left;
-    background: rgb(58, 36, 22);
+    background: linear-gradient(150deg, rgb(41, 28, 21), rgb(75, 46, 28));
     padding: 2.5%;
     color: #fff;
 }
@@ -50,13 +50,12 @@ a {
 
 .button {
     background: dodgerblue;
-    color: #fff;
     font-family: sans-serif;
-    font-size: 1.1rem;
-    padding: 7px 15px;
+    font-size: 1.2rem;
+    padding: 8px 16px;
     border: 2px solid dodgerblue;
-    border-radius: 9px;
-    margin: 5px;
+    border-radius: 5px;
+    margin: 8px;
     transition: .3s;
 }
 
@@ -72,5 +71,5 @@ a {
 
 .button.empty:hover {
     background: dodgerblue;
-    color: #fff;
+    color: inherit;
 }

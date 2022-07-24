@@ -9,13 +9,33 @@ class TableRepository {
         $result = Database::getPdo()->query($sql);
         $tables = [];
         while ($row = $result->fetch()) {
-            $tables[] = new TableEntity($row['id'], $row['name'], $row['id_restaurant']);
+            $tables[] = new TableEntity($row['id'], $row['number'], $row['free'], $row['orders'], $row['id_restaurant']);
+        }
+        return $tables;
+    }
+
+    public static function fetchAllByRestaurantId($id) {
+        $sql = "SELECT * FROM tables WHERE id_restaurant = $id";
+        $result = Database::getPdo()->query($sql);
+        $tables = [];
+        while ($row = $result->fetch()) {
+            $tables[] = new TableEntity($row['id'], $row['number'], $row['free'], $row['orders'], $row['id_restaurant']);
+        }
+        return $tables;
+    }
+
+    public static function fetchFreeByRestaurantId($id) {
+        $sql = "SELECT * FROM tables WHERE id_restaurant = $id AND free = true";
+        $result = Database::getPdo()->query($sql);
+        $tables = [];
+        while ($row = $result->fetch()) {
+            $tables[] = new TableEntity($row['id'], $row['number'], $row['free'], $row['orders'], $row['id_restaurant']);
         }
         return $tables;
     }
 
     public static function add(TableEntity $table): void {
-        $sql = "INSERT INTO tables (name, id_restaurant) VALUES ('" . $table->getName() . "', '" . $table->getIdRestaurant() . "')";
+        $sql = "INSERT INTO tables (number, free, orders, id_restaurant) VALUES ('" . $table->getNumber() . "', '" . $table->isFree() . "', '" . $table->getOrders() . $table->getIdRestaurant() . "')";
         Database::getPdo()->exec($sql);
     }
 
@@ -25,7 +45,7 @@ class TableRepository {
     }
 
     public static function update(TableEntity $table): void {
-        $sql = "UPDATE tables SET name = '" . $table->getName() . "', id_restaurant = '" . $table->getIdRestaurant() . "' WHERE id = " . $table->getId();
+        $sql = "UPDATE tables SET number = '" . $table->getNumber() . "', free = '" . $table->isFree() . "', orders = '" . $table->getOrders() . "', id_restaurant = '" . $table->getIdRestaurant() . "' WHERE id = " . $table->getId();
         Database::getPdo()->exec($sql);
     }
 }

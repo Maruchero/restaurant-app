@@ -11,15 +11,53 @@ class TableController {
         }
         return $json;
     }
-    
-    public static function add(array $table) {
-        $tableDTO = new TableDTO($table['id'], $table['name'], $table['description']);
-        TableService::add($tableDTO);
+
+    public static function fetchAllByRestaurantId($id) {
+        $tables = TableService::fetchAllByRestaurantId($id);
+        $json = [];
+        foreach ($tables as $table) {
+            $json[] = $table->toJson();
+        }
+        return $json;
     }
-    
-    public static function delete(array $table) {
-        $tableDTO = new TableDTO($table['id'], $table['name'], $table['description']);
-        TableService::delete($tableDTO);
+
+    public static function fetchFreeByRestaurantId($id) {
+        $tables = TableService::fetchFreeByRestaurantId($id);
+        $json = [];
+        foreach ($tables as $table) {
+            $json[] = $table->toJson();
+        }
+        return $json;
+    }
+
+    public static function add($table) {
+        try {
+            $table = json_decode($table);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        $table = new TableDTO($table->number, $table->free, $table->orders, $table->id_restaurant);
+        TableService::add($table);
+    }
+
+    public static function delete($table) {
+        try {
+            $table = json_decode($table);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        $table = new TableDTO($table->id, $table->number, $table->free, $table->orders, $table->id_restaurant);
+        TableService::delete($table);
+    }
+
+    public static function update($table) {
+        try {
+            $table = json_decode($table);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        $table = new TableDTO($table->id, $table->number, $table->free, $table->orders, $table->id_restaurant);
+        TableService::update($table);
     }
 }
 
@@ -27,6 +65,22 @@ if (isset($_REQUEST['action'])) {
     switch ($_REQUEST['action']) {
         case 'getAll':
             echo json_encode(TableController::fetchAll());
+            break;
+
+        case 'getAllByRestaurantId':
+            echo json_encode(TableController::fetchAllByRestaurantId($_REQUEST['id']));
+            break;
+
+        case 'getFreeByRestaurantId':
+            echo json_encode(TableController::fetchFreeByRestaurantId($_REQUEST['id']));
+            break;
+
+        case 'add':
+            TableController::add($_REQUEST['table']);
+            break;
+
+        case 'delete':
+            TableController::delete($_REQUEST['table']);
             break;
         
         default:
