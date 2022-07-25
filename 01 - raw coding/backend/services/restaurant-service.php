@@ -3,8 +3,10 @@
 require '../dtos/restaurant-dto.php';
 require '../repository/restaurant-repository.php';
 
-class RestaurantService {
-    public static function fetchAll() {
+class RestaurantService
+{
+    public static function fetchAll()
+    {
         $restaurants = RestaurantRepository::fetchAll();
         $dtos = [];
         foreach ($restaurants as $restaurant) {
@@ -12,19 +14,22 @@ class RestaurantService {
         }
         return $dtos;
     }
-    
-    public static function add(RestaurantDTO $restaurant): void {
-        $restaurantEntity = new RestaurantEntity($restaurant->getName());
-        RestaurantRepository::add($restaurantEntity);
-    }
-    
-    public static function delete(RestaurantDTO $restaurant): void {
-        $restaurantEntity = new RestaurantEntity($restaurant->getId(), $restaurant->getName());
-        RestaurantRepository::delete($restaurantEntity);
+
+    public static function add(RestaurantDTO $restaurant)
+    {
+        $restaurantEntity = new RestaurantEntity(NULL, $restaurant->getName());
+        return RestaurantRepository::add($restaurantEntity);
     }
 
-    public static function update(RestaurantDTO $restaurant): void {
+    public static function delete(RestaurantDTO $restaurant)
+    {
         $restaurantEntity = new RestaurantEntity($restaurant->getId(), $restaurant->getName());
-        RestaurantRepository::update($restaurantEntity);
+        return RestaurantRepository::delete($restaurantEntity);
+    }
+
+    public static function update(RestaurantDTO $restaurant)
+    {
+        $restaurantEntity = new RestaurantEntity($restaurant->getId(), $restaurant->getName());
+        return RestaurantRepository::update($restaurantEntity);
     }
 }

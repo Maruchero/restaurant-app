@@ -3,8 +3,10 @@
 require '../db.php';
 require '../entities/table-entity.php';
 
-class TableRepository {
-    public static function fetchAll() {
+class TableRepository
+{
+    public static function fetchAll()
+    {
         $sql = "SELECT * FROM tables";
         $result = Database::getPdo()->query($sql);
         $tables = [];
@@ -14,7 +16,8 @@ class TableRepository {
         return $tables;
     }
 
-    public static function fetchAllByRestaurantId($id) {
+    public static function fetchAllByRestaurantId($id)
+    {
         $sql = "SELECT * FROM tables WHERE id_restaurant = $id";
         $result = Database::getPdo()->query($sql);
         $tables = [];
@@ -24,7 +27,8 @@ class TableRepository {
         return $tables;
     }
 
-    public static function fetchFreeByRestaurantId($id) {
+    public static function fetchFreeByRestaurantId($id)
+    {
         $sql = "SELECT * FROM tables WHERE id_restaurant = $id AND free = true";
         $result = Database::getPdo()->query($sql);
         $tables = [];
@@ -34,18 +38,24 @@ class TableRepository {
         return $tables;
     }
 
-    public static function add(TableEntity $table): void {
-        $sql = "INSERT INTO tables (number, free, orders, id_restaurant) VALUES ('" . $table->getNumber() . "', '" . $table->isFree() . "', '" . $table->getOrders() . $table->getIdRestaurant() . "')";
+    public static function add(TableEntity $table)
+    {
+        $sql = "INSERT INTO tables (number, free, orders, id_restaurant) VALUES ('" . $table->getNumber() . "', '" . $table->isFree() . "', '" . $table->getOrders() . "', '" . $table->getIdRestaurant() . "')";
         Database::getPdo()->exec($sql);
+        return "Successfully added table";
     }
 
-    public static function delete(TableEntity $table): void {
+    public static function delete(TableEntity $table)
+    {
         $sql = "DELETE FROM tables WHERE id = " . $table->getId();
         Database::getPdo()->exec($sql);
+        return "Successfully deleted table";
     }
 
-    public static function update(TableEntity $table): void {
+    public static function update(TableEntity $table)
+    {
         $sql = "UPDATE tables SET number = '" . $table->getNumber() . "', free = '" . $table->isFree() . "', orders = '" . $table->getOrders() . "', id_restaurant = '" . $table->getIdRestaurant() . "' WHERE id = " . $table->getId();
         Database::getPdo()->exec($sql);
+        return "Successfully updated table";
     }
 }

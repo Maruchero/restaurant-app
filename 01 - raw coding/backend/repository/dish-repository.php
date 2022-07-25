@@ -3,8 +3,10 @@
 require '../db.php';
 require '../entities/dish-entity.php';
 
-class DishRepository {
-    public static function fetchAll() {
+class DishRepository
+{
+    public static function fetchAll()
+    {
         $sql = "SELECT * FROM dishes";
         $result = Database::getPdo()->query($sql);
         $dishes = [];
@@ -13,8 +15,9 @@ class DishRepository {
         }
         return $dishes;
     }
-    
-    public static function fetchByMenuId($id) {
+
+    public static function fetchByMenuId($id)
+    {
         $sql = "SELECT * FROM dishes WHERE id_menu = $id";
         $result = Database::getPdo()->query($sql);
         $dishes = [];
@@ -24,17 +27,20 @@ class DishRepository {
         return $dishes;
     }
 
-    public static function add(DishEntity $dish): void {
-        $sql = "INSERT INTO dishes (name, ingredients, id_menu) VALUES ('" . $dish->getName() . "', '" . $dish->getIngredients() . "', '" . $dish->getPrice() . "', '" . $dish->getIdMenu() . "')";
+    public static function add(DishEntity $dish): void
+    {
+        $sql = "INSERT INTO dishes (name, ingredients, price, id_menu) VALUES ('" . $dish->getName() . "', '" . $dish->getIngredients() . "', '" . $dish->getPrice() . "', '" . $dish->getIdMenu() . "')";
         Database::getPdo()->exec($sql);
     }
 
-    public static function delete(DishEntity $dish): void {
+    public static function delete(DishEntity $dish): void
+    {
         $sql = "DELETE FROM dishes WHERE id = " . $dish->getId();
         Database::getPdo()->exec($sql);
     }
 
-    public static function update(DishEntity $dish): void {
+    public static function update(DishEntity $dish): void
+    {
         $sql = "UPDATE dishes SET name = '" . $dish->getName() . "', ingredients = '" . $dish->getIngredients() . "', price = '" . $dish->getPrice() . "', id_menu = '" . $dish->getIdMenu() . "' WHERE id = " . $dish->getId();
         Database::getPdo()->exec($sql);
     }

@@ -2,54 +2,60 @@
 
 require '../services/restaurant-service.php';
 
-class RestaurantController {
-    public static function fetchAll() {
-        $restaurants = RestaurantService::fetchAll();
-        $json = [];
-        foreach ($restaurants as $restaurant) {
-            $json[] = $restaurant->toJson();
-        }
-        return $json;
-    }
-    
-    public static function add(array $restaurant) {
-        $restaurantDTO = new RestaurantDTO($restaurant['name']);
-        RestaurantService::add($restaurantDTO);
-    }
-    
-    public static function delete(array $restaurant) {
-        $restaurantDTO = new RestaurantDTO($restaurant['id'], $restaurant['name']);
-        RestaurantService::delete($restaurantDTO);
-    }
-
-    public static function update(array $restaurant) {
-        $restaurantDTO = new RestaurantDTO($restaurant['id'], $restaurant['name']);
-        RestaurantService::update($restaurantDTO);
-    }
+function toJson($dtos)
+{
+    $json = [];
+    foreach ($dtos as $dto) $json[] = $dto->toJson();
+    return json_encode($json);
 }
 
 if (isset($_REQUEST['action'])) {
     switch ($_REQUEST['action']) {
         case 'fetchAll':
-            echo json_encode(RestaurantController::fetchAll());
+            try {
+                echo '"data":' . toJson(RestaurantService::fetchAll());
+            } catch (Exception $e) {
+                echo '{"error": "' . $e->getMessage() . '"}';
+            }
             break;
 
         case 'add':
-            RestaurantController::add($_REQUEST['restaurant']);
+            try {
+                $restaurant = json_decode($_REQUEST['restaurant']);
+                echo '"data": "' .
+                    RestaurantService::add(new RestaurantDTO(NULL, $restaurant->name)) .
+                    '"}';
+            } catch (Exception $e) {
+                echo '{"error": "' . $e->getMessage() . '"}';
+            }
             break;
 
         case 'delete':
-            RestaurantController::delete($_REQUEST['restaurant']);
+            try {
+                $restaurant = json_decode($_REQUEST['restaurant']);
+                echo '"data": "' .
+                    RestaurantService::delete(new RestaurantDTO($restaurant->id, $restaurant->name)) .
+                    '"}';
+            } catch (Exception $e) {
+                echo '{"error": "' . $e->getMessage() . '"}';
+            }
             break;
 
         case 'update':
-            RestaurantController::update($_REQUEST['restaurant']);
+            try {
+                $restaurant = json_decode($_REQUEST['restaurant']);
+                echo '"data": "' .
+                    RestaurantService::update(new RestaurantDTO($restaurant->id, $restaurant->name)) .
+                    '"}';
+            } catch (Exception $e) {
+                echo '{"error": "' . $e->getMessage() . '"}';
+            }
             break;
-        
+
         default:
-            echo 'Invalid request: ' . $_REQUEST['action'];
+            echo '{"error": "Invalid action: ' . $_REQUEST['action'] . '"}';
             break;
     }
 } else {
-    echo 'Invalid request: no action specified';
+    echo '{"error": "No action specified"}';
 }

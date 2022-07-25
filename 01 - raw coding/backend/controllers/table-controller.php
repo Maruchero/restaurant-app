@@ -2,91 +2,76 @@
 
 require '../services/table-service.php';
 
-class TableController {
-    public static function fetchAll() {
-        $tables = TableService::fetchAll();
-        $json = [];
-        foreach ($tables as $table) {
-            $json[] = $table->toJson();
-        }
-        return $json;
-    }
-
-    public static function fetchAllByRestaurantId($id) {
-        $tables = TableService::fetchAllByRestaurantId($id);
-        $json = [];
-        foreach ($tables as $table) {
-            $json[] = $table->toJson();
-        }
-        return $json;
-    }
-
-    public static function fetchFreeByRestaurantId($id) {
-        $tables = TableService::fetchFreeByRestaurantId($id);
-        $json = [];
-        foreach ($tables as $table) {
-            $json[] = $table->toJson();
-        }
-        return $json;
-    }
-
-    public static function add($table) {
-        try {
-            $table = json_decode($table);
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-        $table = new TableDTO($table->number, $table->free, $table->orders, $table->id_restaurant);
-        TableService::add($table);
-    }
-
-    public static function delete($table) {
-        try {
-            $table = json_decode($table);
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-        $table = new TableDTO($table->id, $table->number, $table->free, $table->orders, $table->id_restaurant);
-        TableService::delete($table);
-    }
-
-    public static function update($table) {
-        try {
-            $table = json_decode($table);
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-        $table = new TableDTO($table->id, $table->number, $table->free, $table->orders, $table->id_restaurant);
-        TableService::update($table);
-    }
+function toJson($dtos)
+{
+    $json = [];
+    foreach ($dtos as $dto) $json[] = $dto->toJson();
+    return json_encode($json);
 }
 
 if (isset($_REQUEST['action'])) {
     switch ($_REQUEST['action']) {
         case 'fetchAll':
-            echo json_encode(TableController::fetchAll());
+            try {
+                echo '{"data":' . toJson(TableService::fetchAll()) . '}';
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
             break;
 
         case 'fetchByRestaurantId':
-            echo json_encode(TableController::fetchAllByRestaurantId($_REQUEST['id']));
+            try {
+                echo '{"data": "' . toJson(TableService::fetchAllByRestaurantId($_REQUEST['id'])) . '"}';
+            } catch (Exception $e) {
+                echo '{"error": "' . $e->getMessage() . '"}';
+            }
             break;
 
         case 'fetchFreeByRestaurantId':
-            echo json_encode(TableController::fetchFreeByRestaurantId($_REQUEST['id']));
+            try {
+                echo '{"data": "' . toJson(TableService::fetchFreeByRestaurantId($_REQUEST['id'])) . '"}';
+            } catch (Exception $e) {
+                echo '{"error": "' . $e->getMessage() . '"}';
+            }
             break;
 
         case 'add':
-            TableController::add($_REQUEST['table']);
+            try {
+                $table = json_decode($_REQUEST['table']);
+                echo '{"data": "' .
+                    TableService::add(new TableDTO(NULL, $table->number, $table->free, $table->orders, $table->id_restaurant)) .
+                    '"}';
+            } catch (Exception $e) {
+                echo '{"error": "' . $e->getMessage() . '"}';
+            }
             break;
 
         case 'delete':
-            TableController::delete($_REQUEST['table']);
+            try {
+                $table = json_decode($_REQUEST['table']);
+                echo '{"data": "' .
+                    TableService::delete(new TableDTO($table->id, $table->number, $table->free, $table->orders, $table->id_restaurant)) .
+                    '"}';
+            } catch (Exception $e) {
+                echo '{"error": "' . $e->getMessage() . '"}';
+            }
             break;
-        
+
+        case 'update':
+            try {
+                $table = json_decode($_REQUEST['table']);
+                echo '{"data": "' .
+                    TableService::update(new TableDTO($table->id, $table->number, $table->free, $table->orders, $table->id_restaurant)) .
+                    '"}';
+            } catch (Exception $e) {
+                echo '{"error": "' . $e->getMessage() . '"}';
+            }
+            break;
+
         default:
-            echo 'Invalid request: ' . $_REQUEST['action'];
+            echo '{"error": "Invalid action: ' . $_REQUEST['action'] . '"}';
             break;
     }
 } else {
-    echo 'Invalid request: no action specified';
+    echo '{"error": "No action specified"}';
 }
