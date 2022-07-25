@@ -2,67 +2,68 @@
 
 require '../services/dish-service.php';
 
-class DishController {
-    public static function fetchAll() {
-        $dishes = DishService::fetchAll();
-        $json = [];
-        foreach ($dishes as $dish) {
-            $json[] = $dish->toJson();
-        }
-        return $json;
-    }
-
-    public static function fetchByMenuId($id) {
-        $dishes = DishService::fetchByMenuId($id);
-        $json = [];
-        foreach ($dishes as $dish) {
-            $json[] = $dish->toJson();
-        }
-        return $json;
-    }
-
-    public static function add(array $dish) {
-        $dishDTO = new DishDTO($dish['name'], $dish['ingredients'], $dish['price'], $dish['id_menu']);
-        DishService::add($dishDTO);
-    }
-
-    public static function delete(array $dish) {
-        $dishDTO = new DishDTO($dish['id'], $dish['name'], $dish['ingredients'], $dish['price'], $dish['id_menu']);
-        DishService::delete($dishDTO);
-    }
-
-    public static function update(array $dish) {
-        $dishDTO = new DishDTO($dish['id'], $dish['name'], $dish['ingredients'], $dish['price'], $dish['id_menu']);
-        DishService::update($dishDTO);
-    }
+function toJson($dtos)
+{
+    $json = [];
+    foreach ($dtos as $dto) $json[] = $dto->toJson();
+    return json_encode($json);
 }
 
 if (isset($_REQUEST['action'])) {
     switch ($_REQUEST['action']) {
         case 'fetchAll':
-            echo json_encode(DishController::fetchAll());
+            try {
+                echo '{"data":' . toJson(DishService::fetchAll()) . '}';
+            } catch (Exception $e) {
+                echo '{"error": "' . $e->getMessage() . '"}';
+            }
             break;
 
         case 'fetchByMenuId':
-            echo json_encode(DishController::fetchByMenuId($_REQUEST['id']));
+            try {
+                echo '{"data": "' . toJson(DishService::fetchByMenuId($_REQUEST['id'])) . '"}';
+            } catch (Exception $e) {
+                echo '{"error": "' . $e->getMessage() . '"}';
+            }
             break;
 
         case 'add':
-            DishController::add($_REQUEST['dish']);
+            try {
+                $dish = json_decode($_REQUEST['dish']);
+                echo '{"data": "' .
+                    DishService::add(new DishDTO(NULL, $dish->name, $dish->ingredients, $dish->price, $dish->id_menu)) .
+                    '"}';
+            } catch (Exception $e) {
+                echo '{"error": "' . $e->getMessage() . '"}';
+            }
             break;
 
         case 'delete':
-            DishController::delete($_REQUEST['dish']);
+            try {
+                $dish = json_decode($_REQUEST['dish']);
+                echo '{"data": "' .
+                    DishService::delete(new DishDTO($dish->id, $dish->name, $dish->ingredients, $dish->price, $dish->id_menu)) .
+                    '"}';
+            } catch (Exception $e) {
+                echo '{"error": "' . $e->getMessage() . '"}';
+            }
             break;
-            
+
         case 'update':
-            DishController::update($_REQUEST['dish']);
+            try {
+                $dish = json_decode($_REQUEST['dish']);
+                echo '{"data": "' .
+                    DishService::update(new DishDTO($dish->id, $dish->name, $dish->ingredients, $dish->price, $dish->id_menu)) .
+                    '"}';
+            } catch (Exception $e) {
+                echo '{"error": "' . $e->getMessage() . '"}';
+            }
             break;
 
         default:
-            echo 'Invalid request: ' . $_REQUEST['action'];
+            echo '{"error": "Invalid action: ' . $_REQUEST['action'] . '"}';
             break;
     }
 } else {
-    echo 'Invalid request: no action specified';
+    echo '{"error": "Invalid action: ' . $_REQUEST['action'] . '"}';
 }

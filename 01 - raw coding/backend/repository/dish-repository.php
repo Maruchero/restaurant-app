@@ -27,21 +27,24 @@ class DishRepository
         return $dishes;
     }
 
-    public static function add(DishEntity $dish): void
+    public static function add(DishEntity $dish)
     {
         $sql = "INSERT INTO dishes (name, ingredients, price, id_menu) VALUES ('" . $dish->getName() . "', '" . $dish->getIngredients() . "', '" . $dish->getPrice() . "', '" . $dish->getIdMenu() . "')";
         Database::getPdo()->exec($sql);
+        return "Successfully added dish";
     }
 
-    public static function delete(DishEntity $dish): void
+    public static function delete(DishEntity $dish)
     {
         $sql = "DELETE FROM dishes WHERE id = " . $dish->getId();
         Database::getPdo()->exec($sql);
+        return "Successfully deleted dish";
     }
 
-    public static function update(DishEntity $dish): void
+    public static function update(DishEntity $dish)
     {
         $sql = "UPDATE dishes SET name = '" . $dish->getName() . "', ingredients = '" . $dish->getIngredients() . "', price = '" . $dish->getPrice() . "', id_menu = '" . $dish->getIdMenu() . "' WHERE id = " . $dish->getId();
         Database::getPdo()->exec($sql);
+        return "Successfully updated dish";
     }
 }

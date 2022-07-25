@@ -63,7 +63,6 @@ if (isset($_REQUEST['action'])) {
         default:
             echo '{"error": "Invalid action: ' . $_REQUEST['action'] . '"}';
             break;
-
     }
 } else {
     echo '{"error": "No action specified"}';

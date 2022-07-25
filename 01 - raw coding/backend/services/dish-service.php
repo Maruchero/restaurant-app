@@ -25,21 +25,21 @@ class DishService
         return $dtos;
     }
 
-    public static function add(DishDTO $dish): void
+    public static function add(DishDTO $dish)
     {
         $dishEntity = new DishEntity(NULL, $dish->getName(), $dish->getIngredients(), $dish->getPrice(), $dish->getIdMenu());
-        DishRepository::add($dishEntity);
+        return DishRepository::add($dishEntity);
     }
 
-    public static function delete(DishDTO $dish): void
+    public static function delete(DishDTO $dish)
     {
         $dishEntity = new DishEntity($dish->getId(), $dish->getName(), $dish->getIngredients(), $dish->getPrice(), $dish->getIdMenu());
-        DishRepository::delete($dishEntity);
+        return DishRepository::delete($dishEntity);
     }
 
-    public static function update(DishDTO $dish): void
+    public static function update(DishDTO $dish)
     {
         $dishEntity = new DishEntity($dish->getId(), $dish->getName(), $dish->getIngredients(), $dish->getPrice(), $dish->getIdMenu());
-        DishRepository::update($dishEntity);
+        return DishRepository::update($dishEntity);
     }
 }
