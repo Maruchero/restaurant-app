@@ -10,8 +10,9 @@ RestaurantApi.fetchAll((restaurants) => {
         //tr.setAttribute("onclick", `window.location.href = 'restaurant/'; restaurantId = ${restaurant.id}`);
         //tr.setAttribute("onclick", `window.location.href = 'restaurant/'; document.cookie = 'restaurantId=${restaurant.id};restaurantName=${restaurant.name}';`);
         tr.onclick = () => {
-            document.cookie = `restaurantId=${restaurant.id}`;
-            document.cookie = `restaurantName=${restaurant.name}`;
+            cookies.restaurantId = restaurant.id;
+            cookies.restaurantName = restaurant.name;
+            saveCookie();
             window.location.href = 'restaurant/';
         };
         tbody.appendChild(tr);

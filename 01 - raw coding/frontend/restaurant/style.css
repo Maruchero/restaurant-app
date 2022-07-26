@@ -1,75 +1,72 @@
 section {
-    min-height: 100vh;
+  min-height: 100vh;
 }
 
 .left-panel {
-    width: 50%;
-    height: 100vh;
-    float: left;
-    background: linear-gradient(150deg, rgb(41, 28, 21), rgb(75, 46, 28));
-    padding: 2.5%;
-    color: #fff;
+  width: 50%;
+  height: 100vh;
+  float: left;
+  background: linear-gradient(150deg, var(--main-color-1), var(--main-color-2));
+  padding: 2.5%;
+  color: #fff;
 }
 
 .right-panel {
-    height: 100vh;
-    overflow: hidden;
-    background: rgb(141, 96, 68);
+  height: 100vh;
+  overflow: hidden;
+  background: var(--main-color-3);
 }
 
 .left-panel .container {
-    position: relative;
-    top: 50%;
-    transform: translateY(-30%);
+  position: relative;
+  top: 50%;
+  transform: translateY(-30%);
 }
 
 img {
-    height: 100%;
+  height: 100%;
 }
 
 h1 {
-    font-family: Calibri;
-    font-size: 4.5rem;
-    margin-bottom: 0;
+  font-family: Calibri;
+  font-size: 4.5rem;
+  margin-bottom: 0;
 }
 
 p {
-    font-family: Calibri;
-    color: #ddd;
-    font-size: 1.3rem;
-    margin-bottom: 2.4rem;
+  font-family: Calibri;
+  color: #ddd;
+  font-size: 1.3rem;
+  margin-bottom: 2.4rem;
 }
 
-
-
-
 a {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
 .button {
-    background: dodgerblue;
-    font-family: sans-serif;
-    font-size: 1.2rem;
-    padding: 8px 16px;
-    border: 2px solid dodgerblue;
-    border-radius: 5px;
-    margin: 8px;
-    transition: .3s;
+  background: var(--highlight-color-2);
+  font-family: sans-serif;
+  font-size: 1.2rem;
+  padding: 8px 16px;
+  border: 2px solid var(--highlight-color-2);
+  border-radius: 5px;
+  margin: 8px;
+  transition: 0.3s;
 }
 
 .button.empty {
-    background: #fff;
-    color: dodgerblue;
+  background: var(--background-color-1);
+  color: var(--highlight-color-2);
 }
 
 .button:hover {
-    background: #fff;
-    color: dodgerblue;
+  background: var(--background-color-1);
+  color: var(--highlight-color-2);
 }
 
 .button.empty:hover {
-    background: dodgerblue;
-    color: inherit;
+  background: var(--highlight-color-2);
+  color: inherit;
 }

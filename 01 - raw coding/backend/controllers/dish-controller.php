@@ -13,7 +13,7 @@ if (isset($_REQUEST['action'])) {
     switch ($_REQUEST['action']) {
         case 'fetchAll':
             try {
-                echo '{"data":' . toJson(DishService::fetchAll()) . '}';
+                echo '{"data": ' . toJson(DishService::fetchAll()) . '}';
             } catch (Exception $e) {
                 echo '{"error": "' . $e->getMessage() . '"}';
             }
@@ -21,7 +21,7 @@ if (isset($_REQUEST['action'])) {
 
         case 'fetchByMenuId':
             try {
-                echo '{"data": "' . toJson(DishService::fetchByMenuId($_REQUEST['id'])) . '"}';
+                echo '{"data": ' . toJson(DishService::fetchByMenuId($_REQUEST['id'])) . '}';
             } catch (Exception $e) {
                 echo '{"error": "' . $e->getMessage() . '"}';
             }
@@ -30,9 +30,7 @@ if (isset($_REQUEST['action'])) {
         case 'add':
             try {
                 $dish = json_decode($_REQUEST['dish']);
-                echo '{"data": "' .
-                    DishService::add(new DishDTO(NULL, $dish->name, $dish->ingredients, $dish->price, $dish->id_menu)) .
-                    '"}';
+                echo '{"data": "' . DishService::add(new DishDTO(NULL, $dish->name, $dish->ingredients, $dish->price, $dish->id_menu)) . '"}';
             } catch (Exception $e) {
                 echo '{"error": "' . $e->getMessage() . '"}';
             }
@@ -41,9 +39,7 @@ if (isset($_REQUEST['action'])) {
         case 'delete':
             try {
                 $dish = json_decode($_REQUEST['dish']);
-                echo '{"data": "' .
-                    DishService::delete(new DishDTO($dish->id, $dish->name, $dish->ingredients, $dish->price, $dish->id_menu)) .
-                    '"}';
+                echo '{"data": "' . DishService::delete(new DishDTO($dish->id, $dish->name, $dish->ingredients, $dish->price, $dish->id_menu)) . '"}';
             } catch (Exception $e) {
                 echo '{"error": "' . $e->getMessage() . '"}';
             }
@@ -52,9 +48,7 @@ if (isset($_REQUEST['action'])) {
         case 'update':
             try {
                 $dish = json_decode($_REQUEST['dish']);
-                echo '{"data": "' .
-                    DishService::update(new DishDTO($dish->id, $dish->name, $dish->ingredients, $dish->price, $dish->id_menu)) .
-                    '"}';
+                echo '{"data": "' . DishService::update(new DishDTO($dish->id, $dish->name, $dish->ingredients, $dish->price, $dish->id_menu)) . '"}';
             } catch (Exception $e) {
                 echo '{"error": "' . $e->getMessage() . '"}';
             }

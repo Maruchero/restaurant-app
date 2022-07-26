@@ -13,7 +13,7 @@ if (isset($_REQUEST['action'])) {
     switch ($_REQUEST['action']) {
         case 'fetchAll':
             try {
-                echo '"data":' . toJson(RestaurantService::fetchAll());
+                echo '{"data": ' . toJson(RestaurantService::fetchAll()) . '}';
             } catch (Exception $e) {
                 echo '{"error": "' . $e->getMessage() . '"}';
             }
@@ -22,9 +22,7 @@ if (isset($_REQUEST['action'])) {
         case 'add':
             try {
                 $restaurant = json_decode($_REQUEST['restaurant']);
-                echo '"data": "' .
-                    RestaurantService::add(new RestaurantDTO(NULL, $restaurant->name)) .
-                    '"}';
+                echo '{"data": "' . RestaurantService::add(new RestaurantDTO(NULL, $restaurant->name)) . '"}';
             } catch (Exception $e) {
                 echo '{"error": "' . $e->getMessage() . '"}';
             }
@@ -33,9 +31,7 @@ if (isset($_REQUEST['action'])) {
         case 'delete':
             try {
                 $restaurant = json_decode($_REQUEST['restaurant']);
-                echo '"data": "' .
-                    RestaurantService::delete(new RestaurantDTO($restaurant->id, $restaurant->name)) .
-                    '"}';
+                echo '{"data": "' . RestaurantService::delete(new RestaurantDTO($restaurant->id, $restaurant->name)) . '"}';
             } catch (Exception $e) {
                 echo '{"error": "' . $e->getMessage() . '"}';
             }
@@ -44,9 +40,7 @@ if (isset($_REQUEST['action'])) {
         case 'update':
             try {
                 $restaurant = json_decode($_REQUEST['restaurant']);
-                echo '"data": "' .
-                    RestaurantService::update(new RestaurantDTO($restaurant->id, $restaurant->name)) .
-                    '"}';
+                echo '{"data": "' . RestaurantService::update(new RestaurantDTO($restaurant->id, $restaurant->name)) . '"}';
             } catch (Exception $e) {
                 echo '{"error": "' . $e->getMessage() . '"}';
             }

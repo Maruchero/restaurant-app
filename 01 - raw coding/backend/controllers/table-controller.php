@@ -13,15 +13,15 @@ if (isset($_REQUEST['action'])) {
     switch ($_REQUEST['action']) {
         case 'fetchAll':
             try {
-                echo '{"data":' . toJson(TableService::fetchAll()) . '}';
+                echo '{"data": ' . toJson(TableService::fetchAll()) . '}';
             } catch (Exception $e) {
                 echo $e->getMessage();
             }
             break;
 
-        case 'fetchByRestaurantId':
+        case 'fetchAllByRestaurantId':
             try {
-                echo '{"data": "' . toJson(TableService::fetchAllByRestaurantId($_REQUEST['id'])) . '"}';
+                echo '{"data": ' . toJson(TableService::fetchAllByRestaurantId($_REQUEST['id'])) . '}';
             } catch (Exception $e) {
                 echo '{"error": "' . $e->getMessage() . '"}';
             }
@@ -29,7 +29,7 @@ if (isset($_REQUEST['action'])) {
 
         case 'fetchFreeByRestaurantId':
             try {
-                echo '{"data": "' . toJson(TableService::fetchFreeByRestaurantId($_REQUEST['id'])) . '"}';
+                echo '{"data": ' . toJson(TableService::fetchFreeByRestaurantId($_REQUEST['id'])) . '}';
             } catch (Exception $e) {
                 echo '{"error": "' . $e->getMessage() . '"}';
             }

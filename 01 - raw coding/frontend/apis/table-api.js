@@ -9,6 +9,10 @@ class TableApi extends Api {
         this.serverRequest("action=fetchByRestaurantId&id=" + restaurantId, callback);
     }
 
+    static fetchFreeByRestaurantId(restaurantId, callback) {
+        this.serverRequest("action=fetchFreeByRestaurantId&id=" + restaurantId, callback);
+    }
+
     static add(table, callback) {
         this.serverRequest("action=add&table=" + JSON.stringify(table), callback);
     }

@@ -13,7 +13,7 @@ if (isset($_REQUEST['action'])) {
     switch ($_REQUEST['action']) {
         case 'fetchAll':
             try {
-                echo '{"data":' . toJson(MenuService::fetchAll()) . '}';
+                echo '{"data": ' . toJson(MenuService::fetchAll()) . '}';
             } catch (Exception $e) {
                 echo '{"error": "' . $e->getMessage() . '"}';
             }
@@ -21,7 +21,7 @@ if (isset($_REQUEST['action'])) {
 
         case 'fetchByRestaurantId':
             try {
-                echo '{"data": "' . toJson(MenuService::fetchByRestaurantId($_REQUEST['id'])) . '"}';
+                echo '{"data": ' . toJson(MenuService::fetchByRestaurantId($_REQUEST['id'])) . '}';
             } catch (Exception $e) {
                 echo '{"error": "' . $e->getMessage() . '"}';
             }
@@ -30,9 +30,7 @@ if (isset($_REQUEST['action'])) {
         case 'add':
             try {
                 $menu = json_decode($_REQUEST['menu']);
-                echo '{"data": "' .
-                    MenuService::add(new MenuDTO(NULL, $menu->name, $menu->createDate, $menu->modifyDate, $menu->id_restaurant)) .
-                    '"}';
+                echo '{"data": "' . MenuService::add(new MenuDTO(NULL, $menu->name, $menu->createDate, $menu->modifyDate, $menu->id_restaurant)) . '"}';
             } catch (Exception $e) {
                 echo '{"error": "' . $e->getMessage() . '"}';
             }
@@ -41,9 +39,7 @@ if (isset($_REQUEST['action'])) {
         case 'delete':
             try {
                 $menu = json_decode($_REQUEST['menu']);
-                echo '{"data": "' .
-                    MenuService::delete(new MenuDTO($menu->id, $menu->name, $menu->createDate, $menu->modifyDate, $menu->id_restaurant)) .
-                    '"}';
+                echo '{"data": "' . MenuService::delete(new MenuDTO($menu->id, $menu->name, $menu->createDate, $menu->modifyDate, $menu->id_restaurant)) . '"}';
             } catch (Exception $e) {
                 echo '{"error": "' . $e->getMessage() . '"}';
             }
@@ -52,9 +48,7 @@ if (isset($_REQUEST['action'])) {
         case 'update':
             try {
                 $menu = json_decode($_REQUEST['menu']);
-                echo '{"data": "' .
-                    MenuService::update(new MenuDTO($menu->id, $menu->name, $menu->createDate, $menu->modifyDate, $menu->id_restaurant)) .
-                    '"}';
+                echo '{"data": "' . MenuService::update(new MenuDTO($menu->id, $menu->name, $menu->createDate, $menu->modifyDate, $menu->id_restaurant)) . '"}';
             } catch (Exception $e) {
                 echo '{"error": "' . $e->getMessage() . '"}';
             }

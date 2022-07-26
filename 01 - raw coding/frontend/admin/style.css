@@ -1,0 +1,35 @@
+.button-row {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+button {
+  margin: 0 5px;
+}
+
+section[name="tables"] {
+  display: flex;
+  flex-direction: column;
+}
+
+section[name="tables"] table {
+  margin: 0 20px;
+}
+
+button.icon {
+  width: 2.2em;
+  aspect-ratio: 1;
+  padding: 0;
+  margin: 0 5px;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: none;
+  transition: none;
+}
+
+button.icon:hover {
+  background: whitesmoke;
+  box-shadow: 0 0 5px #0001;
+}
