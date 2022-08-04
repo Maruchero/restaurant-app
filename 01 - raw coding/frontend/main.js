@@ -11,13 +11,13 @@ function saveCookie() {
   }
 }
 
-// Api base class
+// Apis
 class Api {
   static URL;
   static showResults = true;
   static showResponseTime = true;
 
-  static serverRequest(parameters, callback) {
+  static serverRequest(parameters, callback=null) {
     // make a new request
     let request = new XMLHttpRequest();
 
@@ -57,8 +57,105 @@ class Api {
           return;
         }
         // response is good
-        callback(res.data);
+        if (callback)
+          callback(res.data);
       }
     };
+  }
+}
+
+class DishApi extends Api {
+  static URL = '/backend/controllers/dish-controller.php';
+
+  static fetchAll(callback) {
+      this.serverRequest("action=fetchAll", callback);
+  }
+  
+  static fetchByMenuId(menuId, callback) {
+      this.serverRequest("action=fetchByMenuId&id=" + menuId, callback);
+  }
+  
+  static add(dish, callback) {
+      this.serverRequest("action=add&dish=" + JSON.stringify(dish), callback);
+  }
+
+  static delete(dish, callback) {
+      this.serverRequest("action=delete&dish=" + JSON.stringify(dish), callback);
+  }
+
+  static update(dish, callback) {
+      this.serverRequest("action=update&dish=" + JSON.stringify(dish), callback);
+  }
+}
+
+class MenuApi extends Api {
+  static URL = '/backend/controllers/menu-controller.php';
+
+  static fetchAll(callback) {
+      this.serverRequest("action=fetchAll", callback);
+  }
+
+  static fetchByRestaurantId(restaurantId, callback) {
+      this.serverRequest("action=fetchByRestaurantId&id=" + restaurantId, callback);
+  }
+
+  static add(menu, callback) {
+      this.serverRequest("action=add&menu=" + JSON.stringify(menu), callback);
+  }
+
+  static delete(menu, callback) {
+      this.serverRequest("action=delete&menu=" + JSON.stringify(menu), callback);
+  }
+
+  static update(menu, callback) {
+      this.serverRequest("action=update&menu=" + JSON.stringify(menu), callback);
+  }
+}
+
+class RestaurantApi extends Api {
+  static URL = '/backend/controllers/restaurant-controller.php';
+
+  static fetchAll(callback) {
+      this.serverRequest("action=fetchAll", callback);
+  }
+
+  static add(restaurant, callback) {
+      this.serverRequest("action=add&restaurant=" + JSON.stringify(restaurant), callback);
+  }
+
+  static delete(restaurant, callback) {
+      this.serverRequest("action=delete&restaurant=" + JSON.stringify(restaurant), callback);
+  }
+
+  static update(restaurant, callback) {
+      this.serverRequest("action=update&restaurant=" + JSON.stringify(restaurant), callback);
+  }
+}
+
+class TableApi extends Api {
+  static URL = '/backend/controllers/table-controller.php';
+
+  static fetchAll(callback) {
+      this.serverRequest("action=fetchAll", callback);
+  }
+
+  static fetchByRestaurantId(restaurantId, callback) {
+      this.serverRequest("action=fetchByRestaurantId&id=" + restaurantId, callback);
+  }
+
+  static fetchFreeByRestaurantId(restaurantId, callback) {
+      this.serverRequest("action=fetchFreeByRestaurantId&id=" + restaurantId, callback);
+  }
+
+  static add(table, callback) {
+      this.serverRequest("action=add&table=" + JSON.stringify(table), callback);
+  }
+
+  static delete(table, callback) {
+      this.serverRequest("action=delete&table=" + JSON.stringify(table), callback);
+  }
+
+  static update(table, callback) {
+      this.serverRequest("action=update&table=" + JSON.stringify(table), callback);
   }
 }

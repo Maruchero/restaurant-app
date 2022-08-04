@@ -7,8 +7,6 @@ RestaurantApi.fetchAll((restaurants) => {
     restaurants.forEach(restaurant => {
         let tr = document.createElement('tr');
         tr.innerHTML = `<td>${restaurant.id}</td><td>${restaurant.name}</td>`;
-        //tr.setAttribute("onclick", `window.location.href = 'restaurant/'; restaurantId = ${restaurant.id}`);
-        //tr.setAttribute("onclick", `window.location.href = 'restaurant/'; document.cookie = 'restaurantId=${restaurant.id};restaurantName=${restaurant.name}';`);
         tr.onclick = () => {
             cookies.restaurantId = restaurant.id;
             cookies.restaurantName = restaurant.name;

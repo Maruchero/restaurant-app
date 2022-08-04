@@ -16,8 +16,9 @@ TableApi.fetchFreeByRestaurantId(cookies.restaurantId, (tables) => {
     let card = document.createElement("div");
     card.classList.add("card");
     card.onclick = () => {
-      cookies.tableId = table.id;
-      window.location.href = "../order.html";
+      cookies.table = JSON.stringify(table);
+      saveCookie();
+      window.location.href = "order/";
     };
     card.innerHTML = `<img src="../img/table.png"><div class="card-body"><h3 class="card-title">Num: ${table.number}</h3></div>`;
     container.appendChild(card);

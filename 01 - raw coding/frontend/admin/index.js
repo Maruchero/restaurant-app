@@ -1,9 +1,9 @@
 const tablesTable = document.getElementById("tables-table");
 let tables;
 
-updateTables();
+fetchTables();
 
-function updateTables() {
+function fetchTables() {
   TableApi.fetchAll((result) => {
     tables = result;
     tablesTable.innerHTML =
@@ -16,7 +16,7 @@ function updateTables() {
         <td>${table.orders}</td>
         <td><button class="icon" title="Mark as completed" style="color:#0c4"><i class="fa-solid fa-check"></i></button></td>
         <td>
-          <button onclick="updateTable(${table})" class="icon" title="Modify table"><i class="fa-solid fa-pen-to-square"></i></button>
+          <button onclick="updateTable(${table.id})" class="icon" title="Modify table"><i class="fa-solid fa-pen-to-square"></i></button>
           <button onclick="deleteTable(${table.id})" class="icon" title="Remove table"><i class="fa-solid fa-xmark" style="color:red"></i></button>
         </td>`;
       tablesTable.appendChild(row);
@@ -38,7 +38,7 @@ function addTable() {
   };
 
   TableApi.add(table, () => {
-    updateTables();
+    fetchTables();
   });
 }
 
@@ -52,6 +52,6 @@ function deleteTable(id) {
   };
 
   TableApi.delete(table, () => {
-    updateTables();
+    fetchTables();
   });
 }
