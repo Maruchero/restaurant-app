@@ -1,2 +1,0 @@
-# exclude django secret key
-src/settings.py filter=secret_key
