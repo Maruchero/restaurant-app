@@ -55,14 +55,14 @@ export class SelectRestaurant extends React.Component {
       return;
     }
 
-    const userIndex = this.state.restaurants.findIndex(
+    const restaurantIndex = this.state.restaurants.findIndex(
       (restaurant) => restaurant.username === username
     );
-    if (!(userIndex+1) || this.state.restaurants[userIndex].password !== password) {
+    if (!(restaurantIndex+1) || this.state.restaurants[restaurantIndex].password !== password) {
       output.innerHTML = "Username or password is incorrect";
       return;
     }
     output.innerHTML = "Login successful";
-    window.location.href = "/selectMode/" + this.state.restaurants[userIndex].id;
+    window.location.href = "selectMode/" + this.state.restaurants[restaurantIndex].id;
   }
 }
