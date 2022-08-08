@@ -1,0 +1,51 @@
+/* Input */
+.cpt-input-label {
+    display: block;
+    font-size: 1rem;
+}
+
+.cpt-input-label:not(:first-child) {
+    margin-top: 0.7rem;
+}
+
+.cpt-input-input {
+    box-sizing: border-box;
+    width: 100%;
+    font-family: sans-serif;
+    font-size: 1.2rem;
+    padding: 5px;
+    border-radius: 5px;
+    border: 2px solid rgb(124, 204, 236);
+    box-shadow: 0 2px 8px rgba(124, 204, 236, 0.4);
+}
+
+.cpt-input-input:focus-visible {
+    outline: none;
+}
+
+/* GlassCard */
+.cpt-glass-card {
+    background-color: #fff2;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+/* Button */
+.cpt-button {
+    padding: 0.4rem 1rem;
+    border-radius: 5px;
+    border: 2px solid rgb(124, 204, 236);
+    background-color: rgb(124, 204, 236);
+    box-shadow: 0 2px 8px rgba(124, 204, 236, 0.4);
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.cpt-button:active {
+    background-color: #fff;
+    color: rgb(124, 204, 236);
+}

@@ -9,8 +9,8 @@ from .serializers import *
 # Create your views here.
 def generalApi(request, base_class, base_serializer):
     if (request.method == 'GET'):
-        restaurants = base_class.objects.all()
-        serializer = base_serializer(restaurants, many=True)
+        objects = base_class.objects.all()
+        serializer = base_serializer(objects, many=True)
         return JsonResponse(serializer.data, safe=False)
 
     elif (request.method == 'POST'):
@@ -23,8 +23,8 @@ def generalApi(request, base_class, base_serializer):
 
     elif (request.method == 'PUT'):
         data = JSONParser().parse(request)
-        restaurant = base_class.objects.get(id=data['id'])
-        serializer = base_serializer(restaurant, data=data)
+        object_ = base_class.objects.get(id=data['id'])
+        serializer = base_serializer(object_, data=data)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse("Updated succesfully", safe=False)
@@ -32,8 +32,8 @@ def generalApi(request, base_class, base_serializer):
 
     elif (request.method == 'DELETE'):
         data = JSONParser().parse(request)
-        restaurant = base_class.objects.get(id=data['id'])
-        restaurant.delete()
+        object_ = base_class.objects.get(id=data['id'])
+        object_.delete()
         return JsonResponse("Deleted succesfully", safe=False)
 
 @csrf_exempt

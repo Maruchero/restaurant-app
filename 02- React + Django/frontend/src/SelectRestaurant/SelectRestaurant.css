@@ -1,0 +1,25 @@
+body {
+    /*background: linear-gradient(45deg, darkorchid 0%, dodgerblue 100%);*/
+    background: rebeccapurple;
+}
+
+.cpt-glass-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40vw;
+    max-width: 430px;
+    padding: 20px!important;
+}
+
+span {
+    display: block;
+}
+
+.cpt-button {
+    position: relative;
+    margin-top: 1em;
+    left: 50%;
+    transform: translateX(-50%);
+}
