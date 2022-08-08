@@ -1,7 +1,9 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
-import './SelectMode.css';
+import { RestaurantService } from "../services";
+
+import "./SelectMode.css";
 
 class SelectModeCmp extends React.Component {
   constructor(props) {
@@ -13,7 +15,13 @@ class SelectModeCmp extends React.Component {
   }
 
   componentDidMount() {
-    this.#loadRestaurant();
+    RestaurantService.getAll().then((restaurants) => {
+      this.setState({
+        restaurant: restaurants.find(
+          (restaurant) => restaurant.id === this.state.id
+        ),
+      });
+    });
   }
 
   #loadRestaurant() {
@@ -21,12 +29,14 @@ class SelectModeCmp extends React.Component {
       .then((response) => response.json())
       .then((data) => {
         this.setState({
-        restaurant: data.find((restaurant) => restaurant.id === this.state.id),
+          restaurant: data.find(
+            (restaurant) => restaurant.id === this.state.id
+          ),
         });
       });
   }
 
-  render () {
+  render() {
     return (
       <section>
         <div className="left-panel">
@@ -39,11 +49,17 @@ class SelectModeCmp extends React.Component {
               meal.
             </p>
             <div className="buttons">
-              <a className="button" href="../admin/">
+              <a
+                className="button"
+                href={"../admin/" + this.state.restaurant.id}
+              >
                 Admin
               </a>
-              <a className="button empty" href="../customer/">
-                Customer
+              <a
+                className="button empty"
+                href={"../order/" + this.state.restaurant.id}
+              >
+                Order
               </a>
             </div>
           </div>
@@ -61,7 +77,5 @@ export function SelectMode(props) {
   const id = Number.parseInt(match.id);
   //const { token } = props;
 
-  return (
-    <SelectModeCmp restaurantId={id} />
-  );
+  return <SelectModeCmp restaurantId={id} />;
 }

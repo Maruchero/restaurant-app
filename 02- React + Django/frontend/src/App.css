@@ -37,15 +37,6 @@ table thead tr {
   text-align: left;
 }
 
-/*
-table tr:nth-child(even) {
-  background-color: #fff;
-}
-
-table tr:nth-child(odd):not(thead tr) {
-  background-color: whitesmoke;
-}
-*/
 /* Buttons */
 button {
   background: #fff;

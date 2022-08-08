@@ -1,7 +1,9 @@
 import React from "react";
-import "./SelectRestaurant.css";
 
 import { Input, GlassCard, Button } from "../MyComponents/MyComponents";
+import { RestaurantService } from "../services";
+
+import "./SelectRestaurant.css";
 
 export class SelectRestaurant extends React.Component {
   /* Override */
@@ -13,7 +15,9 @@ export class SelectRestaurant extends React.Component {
   }
 
   componentDidMount() {
-    this.loadRestaurants();
+    RestaurantService.getAll().then((restaurants) => {
+      this.setState({ restaurants: restaurants });
+    });
   }
 
   render() {
@@ -27,17 +31,6 @@ export class SelectRestaurant extends React.Component {
         </GlassCard>
       </>
     );
-  }
-
-  /* Backend calls */
-  loadRestaurants() {
-    fetch(process.env.REACT_APP_API + "restaurant")
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({
-          restaurants: data,
-        });
-      });
   }
 
   /* Functions */
@@ -58,11 +51,15 @@ export class SelectRestaurant extends React.Component {
     const restaurantIndex = this.state.restaurants.findIndex(
       (restaurant) => restaurant.username === username
     );
-    if (!(restaurantIndex+1) || this.state.restaurants[restaurantIndex].password !== password) {
+    if (
+      !(restaurantIndex + 1) ||
+      this.state.restaurants[restaurantIndex].password !== password
+    ) {
       output.innerHTML = "Username or password is incorrect";
       return;
     }
     output.innerHTML = "Login successful";
-    window.location.href = "selectMode/" + this.state.restaurants[restaurantIndex].id;
+    window.location.href =
+      "selectMode/" + this.state.restaurants[restaurantIndex].id;
   }
 }
