@@ -1,461 +1,92 @@
-export class RestaurantService {
-  static #URL = process.env.REACT_APP_API + "restaurant/";
+class Service {
+  static URL = "";
+
+  static async _fetch(method, body = {}) {
+    try {
+      let response = await fetch(this.URL + method + "/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+      let data = await response.json();
+      return data;
+    } catch (error) {
+      console.error(error);
+      return error;
+    }
+  }
 
   static async getAll() {
-    return await fetch(this.#URL)
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    return this._fetch("fetchAll");
   }
 
-  static async getById(id) {}
-
-  static async add(restaurant) {
-    return await fetch(this.#URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(restaurant),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  static async getById(id) {
+    return this._fetch("fetchById", { id });
   }
 
-  static async update(restaurant) {
-    return await fetch(this.#URL + restaurant.id, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(restaurant),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  static async add(object) {
+    return this._fetch("add", object);
+  }
+
+  static async update(object) {
+    return this._fetch("update", object);
   }
 
   static async delete(id) {
-    return await fetch(this.#URL + id, {
-      method: "DELETE",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    return this._fetch("delete", { id });
   }
 }
 
-export class MenuService {
-  static #URL = process.env.REACT_APP_API + "menu/";
+export class RestaurantService extends Service {
+  static URL = process.env.REACT_APP_API + "restaurant/";
+}
 
-  static async getAll() {
-    return await fetch(this.#URL)
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
+export class MenuService extends Service {
+  static URL = process.env.REACT_APP_API + "menu/";
 
-  static async getById(id) {}
-
-  static async getByRestaurantId(id) {}
-
-  static async add(menu) {
-    return await fetch(this.#URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(menu),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
-  static async update(menu) {
-    return await fetch(this.#URL + menu.id, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(menu),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
-  static async delete(id) {
-    return await fetch(this.#URL + id, {
-      method: "DELETE",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  static async getByRestaurantId(id) {
+    return this._fetch("fetchByRestaurantId", { restaurantId: id });
   }
 }
 
-export class DishService {
-  static #URL = process.env.REACT_APP_API + "dish/";
+export class DishService extends Service {
+  static URL = process.env.REACT_APP_API + "dish/";
 
-  static async getAll() {
-    return await fetch(this.#URL)
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
-  static async getById(id) {}
-
-  static async getByMenuId(id) {}
-
-  static async add(dish) {
-    return await fetch(this.#URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(dish),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
-  static async update(dish) {
-    return await fetch(this.#URL + dish.id, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(dish),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
-  static async delete(id) {
-    return await fetch(this.#URL + id, {
-      method: "DELETE",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  static async getByMenuId(id) {
+    return this._fetch("fetchByMenuId", { id });
   }
 }
 
-export class AreaService {
-  static #URL = process.env.REACT_APP_API + "area/";
+export class AreaService extends Service {
+  static URL = process.env.REACT_APP_API + "area/";
 
-  static async getAll() {
-    return await fetch(this.#URL)
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
-  static async getById(id) {}
-
-  static async getByRestaurantId(id) {}
-
-  static async add(area) {
-    return await fetch(this.#URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(area),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
-  static async update(area) {
-    return await fetch(this.#URL + area.id, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(area),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
-  static async delete(id) {
-    return await fetch(this.#URL + id, {
-      method: "DELETE",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  static async getByRestaurantId(id) {
+    return this._fetch("fetchByRestaurantId", { id });
   }
 }
 
-export class TableService {
-  static #URL = process.env.REACT_APP_API + "table/";
+export class TableService extends Service {
+  static URL = process.env.REACT_APP_API + "table/";
 
-  static async getAll() {
-    return await fetch(this.#URL)
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
-  static async getById(id) {}
-
-  static async getByAreaId(id) {}
-
-  static async add(table) {
-    return await fetch(this.#URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(table),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
-  static async update(table) {
-    return await fetch(this.#URL + table.id, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(table),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
-  static async delete(id) {
-    return await fetch(this.#URL + id, {
-      method: "DELETE",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  static async getByAreaId(id) {
+    return this._fetch("fetchByAreaId", { id });
   }
 }
 
-export class OrderService {
-  static #URL = process.env.REACT_APP_API + "order/";
+export class OrderService extends Service {
+  static URL = process.env.REACT_APP_API + "order/";
 
-  static async getAll() {
-    return await fetch(this.#URL)
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
-  static async getById(id) {}
-
-  static async getByTableId(id) {}
-
-  static async add(order) {
-    return await fetch(this.#URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(order),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
-  static async update(order) {
-    return await fetch(this.#URL + order.id, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(order),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
-  static async delete(id) {
-    return await fetch(this.#URL + id, {
-      method: "DELETE",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  static async getByTableId(id) {
+    return this._fetch("fetchByTableId", { id });
   }
 }
 
-export class OrderDishService {
-  static #URL = process.env.REACT_APP_API + "orderDish/";
+export class OrderDishService extends Service {
+  static URL = process.env.REACT_APP_API + "orderdish/";
 
-  static async getAll() {
-    return await fetch(this.#URL)
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
-  static async getById(id) {}
-
-  static async getByOrderId(id) {}
-
-  static async getByDishId(id) {}
-
-  static async add(orderDish) {
-    return await fetch(this.#URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(orderDish),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
-  static async update(orderDish) {
-    return await fetch(this.#URL + orderDish.id, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(orderDish),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
-  static async delete(id) {
-    return await fetch(this.#URL + id, {
-      method: "DELETE",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  static async getByOrderId(id) {
+    return this._fetch("fetchByOrderId", { id });
   }
 }

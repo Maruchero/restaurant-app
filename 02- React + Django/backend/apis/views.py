@@ -8,8 +8,6 @@ from .serializers import *
 
 # Create your views here.
 def common_api(request, method, ObjectClass, ObjectSerializer):
-    print("\n### Common API")
-    print(method)
     if method == "fetchAll":
         objects = ObjectClass.objects.all()
         serializer = ObjectSerializer(objects, many=True)
