@@ -23,7 +23,7 @@ class Service {
   }
 
   static async getById(id) {
-    return this._fetch("fetchById", { id });
+    return this._fetch("fetchById", { id: id });
   }
 
   static async add(object) {
@@ -35,7 +35,7 @@ class Service {
   }
 
   static async delete(id) {
-    return this._fetch("delete", { id });
+    return this._fetch("delete", { id: id });
   }
 }
 
@@ -47,7 +47,7 @@ export class MenuService extends Service {
   static URL = process.env.REACT_APP_API + "menu/";
 
   static async getByRestaurantId(id) {
-    return this._fetch("fetchByRestaurantId", { restaurantId: id });
+    return await this._fetch("fetchByRestaurantId", { restaurantId: id });
   }
 }
 
@@ -55,7 +55,7 @@ export class DishService extends Service {
   static URL = process.env.REACT_APP_API + "dish/";
 
   static async getByMenuId(id) {
-    return this._fetch("fetchByMenuId", { id });
+    return this._fetch("fetchByMenuId", { menuId: id });
   }
 }
 
@@ -63,7 +63,7 @@ export class AreaService extends Service {
   static URL = process.env.REACT_APP_API + "area/";
 
   static async getByRestaurantId(id) {
-    return this._fetch("fetchByRestaurantId", { id });
+    return this._fetch("fetchByRestaurantId", { restaurantId: id });
   }
 }
 
@@ -71,7 +71,7 @@ export class TableService extends Service {
   static URL = process.env.REACT_APP_API + "table/";
 
   static async getByAreaId(id) {
-    return this._fetch("fetchByAreaId", { id });
+    return this._fetch("fetchByAreaId", { areaId: id });
   }
 }
 
@@ -79,7 +79,7 @@ export class OrderService extends Service {
   static URL = process.env.REACT_APP_API + "order/";
 
   static async getByTableId(id) {
-    return this._fetch("fetchByTableId", { id });
+    return this._fetch("fetchByTableId", { tableId: id });
   }
 }
 
@@ -87,6 +87,6 @@ export class OrderDishService extends Service {
   static URL = process.env.REACT_APP_API + "orderdish/";
 
   static async getByOrderId(id) {
-    return this._fetch("fetchByOrderId", { id });
+    return this._fetch("fetchByOrderId", { orderId: id });
   }
 }

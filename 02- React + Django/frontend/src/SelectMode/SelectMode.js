@@ -24,18 +24,6 @@ class SelectModeCmp extends React.Component {
     });
   }
 
-  #loadRestaurant() {
-    fetch(process.env.REACT_APP_API + "restaurant/")
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({
-          restaurant: data.find(
-            (restaurant) => restaurant.id === this.state.id
-          ),
-        });
-      });
-  }
-
   render() {
     return (
       <section>
