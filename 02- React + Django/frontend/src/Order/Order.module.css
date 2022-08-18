@@ -1,0 +1,81 @@
+.background {
+  background-image: url("/public/menu.jpg");
+  background-size: cover;
+  background-position: center;
+
+  padding-top: 20vh;
+  height: 100vh;
+  overflow: auto;
+}
+
+.menu {
+  backdrop-filter: blur(10px);
+  background-color: rgba(235, 227, 192, .7);
+
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.h1 {
+  text-align: center;
+  font-weight: 500;
+  font-family: "Dancing Script", cursive;
+}
+
+/* Menu */
+.submenu-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 2rem;
+}
+
+.dish {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dish-name {
+  font-family: "Kalam", cursive;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-top: 0.3rem;
+}
+
+.grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: 1.2rem;
+}
+
+.selector {
+  display: flex;
+  align-items: center;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+
+.selector button {
+  background: #ddd;
+  border: 1px solid #bbb;
+  padding: 0;
+  height: 1.5rem;
+  aspect-ratio: 1;
+  align-items: center;
+  font-family: "Roboto";
+}
+
+.selector span {
+  margin: 0 5px;
+  display: block;
+
+  text-align: center;
+  line-height: 1.8rem;
+
+  height: 2rem;
+  aspect-ratio: 1;
+  border-radius: 5px;
+  background: #fff;
+  border: 2px solid #666;
+}

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 import { RestaurantService } from "../services";
 
-import "./SelectMode.css";
+import styles from "./SelectMode.module.css";
 
 class SelectModeCmp extends React.Component {
   constructor(props) {
@@ -27,24 +27,24 @@ class SelectModeCmp extends React.Component {
   render() {
     return (
       <section>
-        <div className="left-panel">
-          <div className="container">
-            <h1 className="title" id="restaurant-name">
+        <div className={styles["left-panel"]}>
+          <div className={styles["container"]}>
+            <h1 className={styles["title"]} id="restaurant-name">
               {this.state.restaurant.name}
             </h1>
-            <p>
+            <p className={styles.p}>
               Welcome to our restaurant! Take a look at the menu and enjoy your
               meal.
             </p>
-            <div className="buttons">
+            <div className={styles["buttons"]}>
               <a
-                className="button"
+                className={styles["button"]}
                 href={"../admin/" + this.state.restaurant.id}
               >
                 Admin
               </a>
               <a
-                className="button empty"
+                className={styles["button"] + " " + styles["empty"]}
                 href={"../order/" + this.state.restaurant.id}
               >
                 Order
@@ -52,7 +52,7 @@ class SelectModeCmp extends React.Component {
             </div>
           </div>
         </div>
-        <div className="right-panel">
+        <div className={styles["right-panel"]}>
           <img src="/restaurant-home.jpg" alt="" />
         </div>
       </section>

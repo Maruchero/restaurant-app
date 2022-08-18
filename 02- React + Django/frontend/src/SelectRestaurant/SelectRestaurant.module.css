@@ -5,10 +5,10 @@
     transform: translate(-50%, -50%);
     width: 40vw;
     max-width: 430px;
-    padding: 20px!important;
+    padding: 20px;
 }
 
-span {
+.span {
     display: block;
 }
 

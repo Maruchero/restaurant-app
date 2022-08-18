@@ -3,7 +3,7 @@ import React from "react";
 import { Input, GlassCard, Button } from "../MyComponents/MyComponents";
 import { RestaurantService } from "../services";
 
-import "./SelectRestaurant.css";
+import styles from "./SelectRestaurant.module.css";
 
 export class SelectRestaurant extends React.Component {
   /* Override */
@@ -23,11 +23,11 @@ export class SelectRestaurant extends React.Component {
   render() {
     return (
       <>
-        <GlassCard>
+        <GlassCard className={styles["cpt-glass-card"]}>
           <Input label="Username" id="username-input" type="text" />
           <Input label="Password" id="password-input" type="password" />
-          <span id="login-output"></span>
-          <Button onClick={() => this.#login()}>Login</Button>
+          <span className={styles.span} id="login-output"></span>
+          <Button className={styles["cpt-button"]} onClick={() => this.#login()}>Login</Button>
         </GlassCard>
       </>
     );
